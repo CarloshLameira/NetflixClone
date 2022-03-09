@@ -1,0 +1,10 @@
+.darkning-vertical{
+        width: inherit;
+        height: inherit;
+        background: linear-gradient(to top, #111 10%, transparent );
+}
+.darkning-horizontal{
+        width: inherit;
+        height: inherit;
+        background: linear-gradient(to right, #111 30%, transparent );
+}
