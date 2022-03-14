@@ -10,6 +10,7 @@ export default () => {
         const [movieList, setMovieList] = useState([])
         const [featuredMovie, setFeaturedMovie] = useState([])
         const [blackBar, setBlackBar] = useState(false)
+        const [isLoading, setisLoading] = useState(true)
         useEffect(() => {
                 const loadAll = async () => {
                         let list = await Tmdb.getHomeList()
@@ -25,6 +26,7 @@ export default () => {
 
 
                         setFeaturedMovie(featuredData.info)
+                        setisLoading(false)
 
 
                 }
@@ -34,39 +36,49 @@ export default () => {
 
         }, [])
 
-        useEffect(()=>{
-                const scrollListener = ()=>{
-                        if(window.scrollY > 10){
+        useEffect(() => {
+                const scrollListener = () => {
+                        if (window.scrollY > 10) {
                                 setBlackBar(true)
-                        }else{
+                        } else {
                                 setBlackBar(false)
                         }
                 }
-                window.addEventListener('scroll',scrollListener);
-                return() =>{
-                        window.removeEventListener('scroll',scrollListener);
+                window.addEventListener('scroll', scrollListener);
+                return () => {
+                        window.removeEventListener('scroll', scrollListener);
                 }
-        },[]
-        
-        
+        }, []
+
+
         )
+
+
 
         return (
                 <div className="page">
-                        <NavBar black ={blackBar}/>
-                        {featuredMovie &&
-                                <FeaturedMovie item={featuredMovie} />
-                        }
-                        <section className="lists">
+                        <NavBar black={blackBar} />
+                        {isLoading ?
+                                <div className="loading">
+                                        <img src="https://pa1.narvii.com/7724/02d6be6c9b9ca850006adc3fa77d9e4088c9c959r1-2000-1000_hq.gif" />
+                                </div>
 
-                                {movieList.map((item, key) => (
-                                        <MovieRow key={key} title={item.title} items={item.items} />
-                                ))}
-                        </section>
-                        {movieList.length <= 0 &&
-                        <div className="loading">
-                                <img src="https://pa1.narvii.com/7724/02d6be6c9b9ca850006adc3fa77d9e4088c9c959r1-2000-1000_hq.gif" />
-                        </div>}
+                                :
+
+                                <>
+                                        {featuredMovie &&
+                                                <FeaturedMovie item={featuredMovie} />
+                                        }
+                                        <section className="lists">
+
+                                                {movieList.map((item, key) => (
+                                                        <MovieRow key={key} title={item.title} items={item.items} />
+                                                ))}
+                                        </section>
+                                </>
+
+
+                        }
                 </div>
 
         )

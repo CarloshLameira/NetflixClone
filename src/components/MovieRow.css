@@ -56,3 +56,8 @@
 .movieRow:hover .Navigate-right{
         opacity: 1;
 }
+@media (max-width:760px){
+        .Navigate-right, .Navigate-left{
+                opacity: 1;
+        }
+}

@@ -2,11 +2,25 @@ import React from 'react'
 import './FeaturedMovie.css'
 
 export default ({ item }) => {
-
+ 
         let firstDate = new Date(item.first_air_date);
+
+        
         let genre = [];
         for (let i in item.genres){
                 genre.push(item.genres[i].name)
+        }
+
+        let seasons = item.number_of_seasons;
+        if(seasons>1){
+                seasons = ' Temporadas'
+        }else{
+                seasons = ' Temporada'
+        }
+
+        let description = item.overview
+        if(description.length>200){
+                description = description.substring(0, 200)
         }
 
 
@@ -24,10 +38,10 @@ export default ({ item }) => {
                                         <div className="featured--name">{item.name}</div>
                                         <div className="featured--info">
                                                 <div className="points">{item.vote_average}</div>
-                                                <div className="year">{firstDate.getFullYear()}</div>
-                                                <div className="numberOfSeasons">{item.number_of_seasons} Temporadas</div>
+                                                {firstDate && <div className="year">{firstDate.getFullYear()}</div>}
+                                                <div className="numberOfSeasons">{item.number_of_seasons}{seasons}</div>
                                         </div>
-                                        <div className="featured--overview">{item.overview}</div>
+                                        <div className="featured--overview">{description}</div>
                                         <div className="buttons">
                                                 <a href={`/watch/${item.id}` }className="watchIt">Assistir</a>
                                                 <a href={`/list/add/${item.id}` }className="mylist">+ Minha Lista</a>
