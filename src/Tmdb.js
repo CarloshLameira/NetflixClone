@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 export const API_Key = '25f644fdd200ffc1c183d4295b7b0e39'
 const API_Base = 'https://api.themoviedb.org/3'
 
@@ -58,6 +58,7 @@ export default {
         getSpecificMovie: async (movieId)=>{
                 return{
                 info: await basicFetch(`/tv/${movieId}?language=pt-BR&api_key=${API_Key}`)}
+                
               
         }
 }
