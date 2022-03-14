@@ -22,7 +22,7 @@ export default () => {
                         const index = Math.floor(Math.random() * (originals[0].items.results.length - 1))
                         const chosenOne = originals[0].items.results[index]
                         let featuredData = await Tmdb.getSpecificMovie(chosenOne.id, 'tv')
-                        console.log(featuredData)
+
 
                         setFeaturedMovie(featuredData.info)
 
@@ -63,6 +63,10 @@ export default () => {
                                         <MovieRow key={key} title={item.title} items={item.items} />
                                 ))}
                         </section>
+                        {movieList.length <= 0 &&
+                        <div className="loading">
+                                <img src="https://pa1.narvii.com/7724/02d6be6c9b9ca850006adc3fa77d9e4088c9c959r1-2000-1000_hq.gif" />
+                        </div>}
                 </div>
 
         )
